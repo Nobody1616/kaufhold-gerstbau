@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Shield, Clock, CheckCircle, Wrench, HardHat, Building } from "lucide-react";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import SectionFadeIn from "@/components/SectionFadeIn";
 import CTASection from "@/components/CTASection";
+
+import hero1 from "@/assets/hero-1.jpg";
+import hero2 from "@/assets/hero-2.jpg";
+import hero3 from "@/assets/hero-3.jpg";
+
+const heroImages = [hero1, hero2, hero3];
+const SLIDE_DURATION = 5000;
 
 const services = [
   { icon: Building, title: "Fassadengerüste", desc: "Sichere Fassadengerüste für Neubau und Sanierung." },
@@ -24,50 +32,99 @@ const reasons = [
 ];
 
 const Index = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    setProgress(0);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          nextSlide();
+          return 0;
+        }
+        return prev + (100 / (SLIDE_DURATION / 50));
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, [nextSlide]);
+
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center scaffold-grid overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        {/* Background images */}
+        {heroImages.map((img, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: currentSlide === i ? 1 : 0 }}
+          >
+            <img
+              src={img}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-primary/70" />
+
         {/* Structural corner accents */}
-        <div className="absolute top-8 left-8 w-24 h-24 border-t-4 border-l-4 border-accent hidden md:block" />
-        <div className="absolute bottom-8 right-8 w-24 h-24 border-b-4 border-r-4 border-accent hidden md:block" />
-        
-        <div className="container mx-auto px-4 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block bg-accent/10 border border-accent/30 rounded-sm px-3 py-1 text-xs font-mono text-accent-foreground mb-6 animate-fade-up">
-                Gerüstbauservice in Köln
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-                Professioneller <br />
-                <span className="text-accent">Gerüstbau</span> in Köln
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-lg animate-fade-up" style={{ animationDelay: "0.2s" }}>
-                Sichere Gerüstlösungen für Bau, Renovierung und Industrie. 
-                Zuverlässig, termingerecht und nach höchsten Sicherheitsstandards.
-              </p>
-              <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-                <Link
-                  to="/leistungen"
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:bg-accent hover:text-accent-foreground hover:gap-4 transition-all duration-300"
-                >
-                  Leistungen ansehen
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/kontakt"
-                  className="inline-flex items-center gap-2 border-2 border-primary text-primary px-6 py-3 rounded-sm font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                >
-                  Angebot anfragen
-                </Link>
-              </div>
+        <div className="absolute top-8 left-8 w-24 h-24 border-t-4 border-l-4 border-accent hidden md:block z-10" />
+        <div className="absolute bottom-20 right-8 w-24 h-24 border-b-4 border-r-4 border-accent hidden md:block z-10" />
+
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="max-w-2xl">
+            <div className="inline-block bg-accent/10 border border-accent/30 rounded-sm px-3 py-1 text-xs font-mono text-accent mb-6 animate-fade-up">
+              Gerüstbauservice in Köln
             </div>
-            <div className="animate-fade-up" style={{ animationDelay: "0.4s" }}>
-              <div className="scaffold-corner p-4">
-                <ImagePlaceholder aspectRatio="4/3" className="rounded-sm" />
-              </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
+              Professioneller <br />
+              <span className="text-accent">Gerüstbau</span> in Köln
+            </h1>
+            <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg animate-fade-up" style={{ animationDelay: "0.2s" }}>
+              Sichere Gerüstlösungen für Bau, Renovierung und Industrie.
+              Zuverlässig, termingerecht und nach höchsten Sicherheitsstandards.
+            </p>
+            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+              <Link
+                to="/leistungen"
+                className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:bg-accent/90 hover:gap-4 transition-all duration-300"
+              >
+                Leistungen ansehen
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/kontakt"
+                className="inline-flex items-center gap-2 border-2 border-primary-foreground text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:bg-primary-foreground hover:text-primary transition-all duration-300"
+              >
+                Angebot anfragen
+              </Link>
             </div>
           </div>
+        </div>
+
+        {/* Slide indicator bars */}
+        <div className="absolute bottom-0 left-0 right-0 z-10 flex gap-1 px-4 pb-4 md:px-8">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { setCurrentSlide(i); setProgress(0); }}
+              className="relative h-1.5 flex-1 bg-primary-foreground/20 rounded-full overflow-hidden cursor-pointer hover:bg-primary-foreground/30 transition-colors"
+            >
+              <div
+                className="absolute inset-y-0 left-0 bg-accent rounded-full transition-all duration-100 ease-linear"
+                style={{
+                  width: currentSlide === i ? `${progress}%` : currentSlide > i ? '100%' : '0%',
+                }}
+              />
+            </button>
+          ))}
         </div>
       </section>
 
