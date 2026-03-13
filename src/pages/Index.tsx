@@ -80,9 +80,9 @@ const Index = () => {
 
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="max-w-2xl">
-            <div className="inline-block bg-accent/10 border border-accent/30 rounded-sm px-3 py-1 text-xs font-mono text-accent mb-6 animate-fade-up">
-              Gerüstbauservice in Köln
-            </div>
+            
+
+            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
               Professioneller <br />
               <span className="text-accent">Gerüstbau</span> in Köln
