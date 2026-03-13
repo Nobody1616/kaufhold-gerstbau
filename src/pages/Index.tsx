@@ -56,7 +56,7 @@ const Index = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen -mt-16 md:-mt-20 flex items-center overflow-hidden">
         {/* Background images */}
         {heroImages.map((img, i) =>
         <div
@@ -78,31 +78,25 @@ const Index = () => {
         <div className="absolute top-8 left-8 w-24 h-24 border-t-4 border-l-4 border-accent hidden md:block z-10" />
         <div className="absolute bottom-20 right-8 w-24 h-24 border-b-4 border-r-4 border-accent hidden md:block z-10" />
 
-        <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="container mx-auto px-4 py-20 relative z-10 flex items-center justify-center text-center">
           <div className="max-w-2xl">
-            
-
-            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
               Professioneller <br />
               <span className="text-accent">Gerüstbau</span> in Köln
             </h1>
-            <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg animate-fade-up" style={{ animationDelay: "0.2s" }}>
+            <p className="text-lg text-primary-foreground/80 mb-8 max-w-lg mx-auto animate-fade-up" style={{ animationDelay: "0.2s" }}>
               Fassadengerüste, Baugerüste und Industriegerüste –
-sicher geplant, fachgerecht montiert und zuverlässig betreut.
-
+              sicher geplant, fachgerecht montiert und zuverlässig betreut.
             </p>
-            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+            <div className="flex flex-wrap justify-center gap-4 animate-fade-up" style={{ animationDelay: "0.3s" }}>
               <Link to="/leistungen"
               className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:bg-accent/90 hover:gap-4 transition-all duration-300">
-                
                 Leistungen ansehen
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/kontakt"
                 className="inline-flex items-center gap-2 border-2 border-primary-foreground text-primary-foreground px-6 py-3 rounded-sm font-semibold text-sm hover:bg-primary-foreground hover:text-primary transition-all duration-300">
-                
                 Angebot anfragen
               </Link>
             </div>
