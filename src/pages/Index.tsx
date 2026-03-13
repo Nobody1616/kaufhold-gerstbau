@@ -56,7 +56,7 @@ const Index = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen -mt-16 md:-mt-20 flex items-center overflow-hidden">
         {/* Background images */}
         {heroImages.map((img, i) =>
         <div
