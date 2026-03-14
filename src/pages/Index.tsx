@@ -75,8 +75,8 @@ const Index = () => {
         <div className="absolute inset-0 bg-primary/70" />
 
         {/* Structural corner accents */}
-        <div className="absolute top-8 left-8 w-24 h-24 border-t-4 border-l-4 border-accent hidden md:block z-10" />
-        <div className="absolute bottom-20 right-8 w-24 h-24 border-b-4 border-r-4 border-accent hidden md:block z-10" />
+        <div className="absolute top-24 left-8 w-20 h-20 border-t-2 border-l-2 border-accent/40 hidden md:block z-10" />
+        <div className="absolute bottom-12 right-8 w-20 h-20 border-b-2 border-r-2 border-accent/40 hidden md:block z-10" />
 
         <div className="container mx-auto px-4 py-20 relative z-10 flex items-center justify-center text-center">
           <div className="max-w-2xl">
